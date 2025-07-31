@@ -86117,7 +86117,12 @@ GameObject:
   - component: {fileID: 2073103081}
   - component: {fileID: 2073103083}
   - component: {fileID: 2073103082}
-  - component: {fileID: 2073103079}
+  - component: {fileID: 2073103089}
+  - component: {fileID: 2073103088}
+  - component: {fileID: 2073103087}
+  - component: {fileID: 2073103086}
+  - component: {fileID: 2073103085}
+  - component: {fileID: 2073103084}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -86144,27 +86149,6 @@ Transform:
   - {fileID: 927334488}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2073103079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073103077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c8f9047a61d07f45ad42569afa56a25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  playerAnim: {fileID: 1868367714}
-  slider: {fileID: 819703961}
-  kura: {fileID: 8300000, guid: dfc21feeacdfd704480a3fb7699bc7b7, type: 3}
-  gameOver: 0
-  redOverlay: {fileID: 230824213}
-  CounterText: {fileID: 377126813}
-  RecordText: {fileID: 826098948}
-  restart: {fileID: 2127137875}
 --- !u!65 &2073103080
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -86317,6 +86301,88 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073103077}
   m_Enabled: 1
+--- !u!114 &2073103084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073103077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d1495f346d294448107c0efba91e65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  counterText: {fileID: 377126813}
+  recordText: {fileID: 826098948}
+--- !u!114 &2073103085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073103077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809f87b9a3835d542965810ccb90ec81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  rotationSpeed: 0.5
+  playerAnim: {fileID: 1868367714}
+--- !u!114 &2073103086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073103077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f13ee6027e89c1e4ba101fa7ba2951a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 15
+  healthSlider: {fileID: 819703961}
+  damageOverlay: {fileID: 230824213}
+--- !u!114 &2073103087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073103077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd74a755bf4bd941917534b36604002, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2073103088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073103077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbe782c8509c654a92bdb83a92fd93d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chickenSound: {fileID: 8300000, guid: dfc21feeacdfd704480a3fb7699bc7b7, type: 3}
+--- !u!114 &2073103089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073103077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f4961ad4e027624cb07d2bafa651749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  restartPanel: {fileID: 2127137875}
 --- !u!1 &2074566881
 GameObject:
   m_ObjectHideFlags: 0

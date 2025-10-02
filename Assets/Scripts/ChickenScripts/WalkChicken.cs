@@ -23,8 +23,8 @@ public class WalkChicken : StateMachineBehaviour
             points.Add(t);
         }
         agent.SetDestination(points[Random.Range(0, points.Count)].position); //первая точка
-        timeWalking = Random.Range(10, 31);        
-        //Debug.Log("timeWalking  " + timeWalking);
+        timeWalking = Random.Range(10, 31);
+        agent.speed = 1;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

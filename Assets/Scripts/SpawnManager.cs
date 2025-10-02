@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SpawnManager : MonoBehaviour
-{
-    [SerializeField] GameObject[] chickenPrefab;    
+{    
+    [SerializeField] private string chickenPoolTag = "Chicken";
+    [SerializeField] private ObjectPool objectPool;
+
     List<Transform> points = new List<Transform>();
     private int chickenCount;    
 
-    void Start()
+    private void Start()
     {
         Transform pointsObject = GameObject.FindGameObjectWithTag("PointsChicken").transform;
         foreach (Transform t in pointsObject)
@@ -17,13 +19,15 @@ public class SpawnManager : MonoBehaviour
             points.Add(t);
         }
         StartCoroutine(CheckChicken());
-    }   
-    void SpawnChicken()
-    {
-        Vector3 spawnPos = (points[Random.Range(0, points.Count)].position);
-        int chickenIndex = Random.Range(0, chickenPrefab.Length);
-        Instantiate(chickenPrefab[chickenIndex], spawnPos, chickenPrefab[chickenIndex].transform.rotation);        
     }
+    
+    private void SpawnChicken()
+    {
+        if (points.Count == 0 || objectPool == null) return;
+        Vector3 spawnPos = points[Random.Range(0, points.Count)].position;
+        objectPool.SpawnFromPool(chickenPoolTag, spawnPos, Quaternion.identity);        
+    }
+
     IEnumerator CheckChicken() 
     {
         yield return new WaitForSeconds(5);
@@ -34,6 +38,7 @@ public class SpawnManager : MonoBehaviour
         }
         StartCoroutine(CheckChicken());
     }
+
     public void RestartButton() 
     {
         SceneManager.LoadScene(0);

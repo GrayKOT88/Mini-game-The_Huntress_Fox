@@ -12,7 +12,7 @@ public class RunChicken : StateMachineBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = animator.GetComponent<NavMeshAgent>();
-        agent.speed = Random.Range(2f, 4.9f);
+        agent.speed = Random.Range(2f, 4.5f);
         //Debug.Log(agent.speed);
     }
 

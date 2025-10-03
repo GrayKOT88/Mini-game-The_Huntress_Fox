@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour, IObjectPool
@@ -10,18 +9,22 @@ public class ObjectPool : MonoBehaviour, IObjectPool
         public string tag;
         public GameObject prefab;
         public int size;
+        [HideInInspector] public int activeCount; // Счетчик активных объектов
     }
 
     [SerializeField] private List<Pool> pools;
-    private Dictionary<string, Queue<GameObject>> poolDictionary;    
-    
+    private Dictionary<string, Queue<GameObject>> poolDictionary;
+    private Dictionary<string, Pool> poolConfig; // доступ к конфигурации
+
     private void Awake()
     {        
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
+        poolConfig = new Dictionary<string, Pool>();
 
         foreach (Pool pool in pools)
         {
             Queue<GameObject> objectPool = new Queue<GameObject>();
+            pool.activeCount = 10; // Инициализация счетчика
 
             for (int i = 0; i < pool.size; i++)
             {
@@ -31,6 +34,7 @@ public class ObjectPool : MonoBehaviour, IObjectPool
             }
 
             poolDictionary.Add(pool.tag, objectPool);
+            poolConfig.Add(pool.tag, pool); // Сохраняем конфигурацию
         }
     }
 
@@ -42,22 +46,54 @@ public class ObjectPool : MonoBehaviour, IObjectPool
             return null;
         }
 
+        if (poolDictionary[tag].Count == 0) // Проверяем, есть ли доступные объекты
+        {
+            Debug.LogWarning($"No available objects in pool {tag}. Consider increasing pool size.");
+            return null;
+        }
+
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
+
+        if (objectToSpawn == null)
+        {
+            Debug.LogError($"Null object in pool {tag}");
+            return null;
+        }
 
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
 
         IPooledObject pooledObject = objectToSpawn.GetComponent<IPooledObject>();
-        pooledObject.SetObjectPool(this);
+
+        if (pooledObject != null)
+        {
+            pooledObject.SetObjectPool(this);
+        }
+
+        else
+        {
+            Debug.LogWarning($"Object from pool {tag} doesn't implement IPooledObject");
+        }
 
         poolDictionary[tag].Enqueue(objectToSpawn);
+
+        if (poolConfig.ContainsKey(tag)) // Обновляем счетчик
+        {
+            poolConfig[tag].activeCount++;
+        }
 
         return objectToSpawn;
     }
 
     public void ReturnToPool(string tag, GameObject objectToReturn)
     {
+        if (objectToReturn == null)
+        {
+            Debug.LogWarning("Attempted to return null object to pool");
+            return;
+        }
+
         if (!poolDictionary.ContainsKey(tag))
         {
             Debug.LogWarning($"Pool with tag {tag} doesn't exist.");
@@ -66,11 +102,15 @@ public class ObjectPool : MonoBehaviour, IObjectPool
 
         objectToReturn.SetActive(false);
         poolDictionary[tag].Enqueue(objectToReturn);
+
+        if (poolConfig.ContainsKey(tag) && poolConfig[tag].activeCount > 0) // Обновляем счетчик
+        {
+            poolConfig[tag].activeCount--;
+        }
     }
 
-    public int GetActiveObjectsCount(string tag)
+    public int GetActiveObjectsCount(string tag) // подсчет активных объектов
     {
-        if (!poolDictionary.ContainsKey(tag)) return 0;
-        return poolDictionary[tag].Count(obj => obj.activeInHierarchy);
+        return poolConfig.ContainsKey(tag) ? poolConfig[tag].activeCount : 0;
     }
 }

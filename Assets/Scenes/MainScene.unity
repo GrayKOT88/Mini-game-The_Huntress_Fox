@@ -14246,6 +14246,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chickenPoolTag: Chicken
+  maxChickens: 10
+  spawnCheckInterval: 10
   objectPool: {fileID: 1147315457}
 --- !u!4 &358517944
 Transform:
@@ -50259,7 +50261,8 @@ MonoBehaviour:
   pools:
   - tag: Chicken
     prefab: {fileID: 6310415139074451284, guid: 2b3c2d238ae208f49a3fc306503c7d46, type: 3}
-    size: 3
+    size: 0
+    activeCount: 0
 --- !u!1001 &1153531528
 PrefabInstance:
   m_ObjectHideFlags: 0

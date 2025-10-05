@@ -1,30 +1,26 @@
 using UnityEngine;
 
-public class IdleChicken : StateMachineBehaviour
-{
-    float timer;
-    float runRange = 5;
-    Transform player;
-
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state    
+public class IdleChicken : AIStateBase
+{    
+    private float runRange = 5;
+    private float _timeToIdle = 3f;
+        
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        timer = 0;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        Initialize(animator);
+        SetRandomDuration(_timeToIdle, _timeToIdle + 8);
     }
-
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+        
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        timer += Time.deltaTime;
-        if (timer > 3)
+    {        
+        if (UpdateStateTimer())
         {
-            animator.SetBool("isEating", true);
+            SetBool("isEating", true);
         }
-        float distance = Vector3.Distance(animator.transform.position, player.position); //Дистанция между
-        if (distance < runRange)
+        
+        if (_playerDistance < runRange)
         {
-            animator.SetBool("isRunning", true);
+            SetBool("isRunning", true);
         }
     }
 }

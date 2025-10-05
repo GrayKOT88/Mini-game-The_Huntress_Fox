@@ -1,54 +1,46 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class WalkChicken : StateMachineBehaviour
-{
-    float timer;
-    float runRange = 5;
-    int timeWalking;
-    Transform player;
-    NavMeshAgent agent;
+public class WalkChicken : AIStateBase
+{    
+    private float runRange = 5;
+    private float _timeToWalking = 10f;
     List<Transform> points = new List<Transform>();
-
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+        
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        timer = 0;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        agent = animator.GetComponent<NavMeshAgent>();
+        Initialize(animator);        
         Transform pointsOdject = GameObject.FindGameObjectWithTag("PointsChicken").transform;
         foreach (Transform t in pointsOdject)
         {
             points.Add(t);
         }
-        agent.SetDestination(points[Random.Range(0, points.Count)].position); //первая точка
-        timeWalking = Random.Range(10, 31);
-        agent.speed = 1;
+        _agent.SetDestination(points[Random.Range(0, points.Count)].position); //первая точка
+                                                                               
+        SetRandomDuration(_timeToWalking, _timeToWalking + 21);
+        _agent.speed = 1;
     }
-
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+        
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        if (_agent.remainingDistance <= _agent.stoppingDistance)
         {
-            agent.SetDestination(points[Random.Range(0, points.Count)].position);
+            _agent.SetDestination(points[Random.Range(0, points.Count)].position);
         }
-        timer += Time.deltaTime;
-        if (timer > timeWalking)
+        
+        if (UpdateStateTimer())
         {
-            animator.SetBool("isWalking", false);
+            SetBool("isWalking", false);
         }
-        float distance = Vector3.Distance(animator.transform.position, player.position); //Дистанция между
-        if (distance < runRange)
+        
+        if (_playerDistance < runRange)
         {
-            animator.SetBool("isRunning", true);
+            SetBool("isRunning", true);
         }
     }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+        
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agent.SetDestination(agent.transform.position);
+        _agent.SetDestination(_agent.transform.position);
     }
 }

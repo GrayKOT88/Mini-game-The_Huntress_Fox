@@ -1,35 +1,29 @@
 using UnityEngine;
 
-public class SittingDog : StateMachineBehaviour
-{
-    float timer;
+public class SittingDog : AIStateBase
+{    
     float chaseRange = 15;
-    int timeSitting;
-    Transform player;    
-
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    private float _timeToSitting = 5f;
+    
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {        
-        timer = 0;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        timeSitting = Random.Range(5,21);
-        //Debug.Log("timeSitting  " +  timeSitting);
+    {
+        Initialize(animator);
+        SetRandomDuration(_timeToSitting, _timeToSitting + 20);
     }
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+    
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {       
-        timer += Time.deltaTime;                
-        if (timer > timeSitting)
+    {        
+        if (UpdateStateTimer())
         {            
-            animator.SetBool("Sit_b", false);            
-            animator.SetBool("isPatrolling", true);            
+            SetBool("Sit_b", false);            
+            SetBool("isPatrolling", true);            
         }
-        float distance = Vector3.Distance(animator.transform.position, player.position); //Дистанция между
-        if (distance < chaseRange)
+        
+        if (_playerDistance < chaseRange)
         {
-            animator.SetBool("Sit_b", false);
-            animator.SetBool("isChasing", true);
+            SetBool("Sit_b", false);
+            SetBool("isChasing", true);
         }
     }
 }

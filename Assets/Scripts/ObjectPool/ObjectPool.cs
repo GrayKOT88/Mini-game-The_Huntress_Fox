@@ -7,7 +7,7 @@ public class ObjectPool : MonoBehaviour, IObjectPool
     public class Pool
     {
         public string tag;
-        public GameObject prefab;
+        public GameObject[] prefabs;
         public int size;
         [HideInInspector] public int activeCount; // Счетчик активных объектов
     }
@@ -24,11 +24,11 @@ public class ObjectPool : MonoBehaviour, IObjectPool
         foreach (Pool pool in pools)
         {
             Queue<GameObject> objectPool = new Queue<GameObject>();
-            pool.activeCount = 10; // Инициализация счетчика
+            pool.activeCount = 0; // Инициализация счетчика
 
             for (int i = 0; i < pool.size; i++)
             {
-                GameObject obj = Instantiate(pool.prefab);
+                GameObject obj = Instantiate(pool.prefabs[Random.Range(0, pool.prefabs.Length)]);
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
             }
@@ -74,9 +74,7 @@ public class ObjectPool : MonoBehaviour, IObjectPool
         else
         {
             Debug.LogWarning($"Object from pool {tag} doesn't implement IPooledObject");
-        }
-
-        poolDictionary[tag].Enqueue(objectToSpawn);
+        }        
 
         if (poolConfig.ContainsKey(tag)) // Обновляем счетчик
         {
@@ -100,13 +98,13 @@ public class ObjectPool : MonoBehaviour, IObjectPool
             return;
         }
 
-        objectToReturn.SetActive(false);
-        poolDictionary[tag].Enqueue(objectToReturn);
-
         if (poolConfig.ContainsKey(tag) && poolConfig[tag].activeCount > 0) // Обновляем счетчик
         {
             poolConfig[tag].activeCount--;
         }
+
+        objectToReturn.SetActive(false);
+        poolDictionary[tag].Enqueue(objectToReturn);
     }
 
     public int GetActiveObjectsCount(string tag) // подсчет активных объектов

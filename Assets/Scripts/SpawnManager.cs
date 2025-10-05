@@ -16,6 +16,7 @@ public class SpawnManager : MonoBehaviour
     private void Start()
     {
         CacheSpawnPoints();
+        SpawnMultipleChickens(maxChickens);
         checkCoroutine = StartCoroutine(ChickenCheckRoutine());
     }
 

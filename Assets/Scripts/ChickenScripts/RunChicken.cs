@@ -2,20 +2,21 @@ using UnityEngine;
 
 public class RunChicken : AIStateBase
 {
-    float runRange = 10;    
-        
+    private const float MIN_SPEED = 3.5f;
+    private const float MAX_SPEED = 5f;
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Initialize(animator);        
-        _agent.speed = Random.Range(3.8f, 5.1f);        
+        _agent.speed = Random.Range(MIN_SPEED, MAX_SPEED);        
     }
         
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Vector3 runDirection = animator.transform.position - _player.position; // Вычисляем направление для убегания
+        Vector3 runDirection = animator.transform.position - _player.position; // Вычисляем направление
         _agent.SetDestination(animator.transform.position + runDirection); // Устанавливаем цель для навигации
                 
-        if (_playerDistance > runRange)
+        if (_playerDistance > _chaseRange)
         {
             SetBool("isRunning", false);
             SetBool("isWalking", false);

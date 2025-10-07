@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EatChicken : AIStateBase
 {
-    private float _timeToEating = 5f;
+    private float _timeToEating = 5f;    
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -18,7 +18,7 @@ public class EatChicken : AIStateBase
             SetBool("isWalking", true);
         }
         
-        if (_playerDistance < 5)
+        if (_playerDistance < _runRange)
         {
             SetBool("isEating", false);
         }

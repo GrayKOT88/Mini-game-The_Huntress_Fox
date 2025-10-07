@@ -18,10 +18,15 @@ public class ChickenDead : MonoBehaviour, IPooledObject
             Vector3 partPos = new Vector3(transform.position.x, 0.2f, transform.position.z);           
             Instantiate(explosionParticle, partPos, explosionParticle.transform.rotation);
 
-            if (objectPool != null)
-                objectPool.ReturnToPool(poolTag, gameObject);
-            else
-                FindObjectOfType<ObjectPool>()?.ReturnToPool(poolTag, gameObject);
+            ReturnToPool();
         }
+    }
+
+    private void ReturnToPool()
+    {
+        if (objectPool != null)
+            objectPool.ReturnToPool(poolTag, gameObject);
+        else
+            FindObjectOfType<ObjectPool>()?.ReturnToPool(poolTag, gameObject);
     }
 }

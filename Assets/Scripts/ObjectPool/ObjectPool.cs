@@ -17,6 +17,11 @@ public class ObjectPool : MonoBehaviour, IObjectPool
     private Dictionary<string, Pool> poolConfig; // доступ к конфигурации
 
     private void Awake()
+    {
+        InitializePools();
+    }
+
+    private void InitializePools()
     {        
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
         poolConfig = new Dictionary<string, Pool>();

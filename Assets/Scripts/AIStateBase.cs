@@ -10,13 +10,18 @@ public abstract class AIStateBase : StateMachineBehaviour
     protected float _timer;
     protected float _randomDuration;
 
+    protected float _runRange = 5f;
+    protected float _chaseRange = 10f;
+    
     protected float _playerDistance => Vector3.Distance(_animator.transform.position, _player.position);
+    private static Transform _cachedPlayer; // Статическое кэширование игрока
 
     public virtual void Initialize(Animator animator)
     {
         _animator = animator;
-        if(_player == null)
-            _player = GameObject.FindGameObjectWithTag("Player").transform;
+        if(_cachedPlayer == null)
+            _cachedPlayer = GameObject.FindGameObjectWithTag("Player").transform;
+        _player = _cachedPlayer;
         _agent = animator.GetComponent<NavMeshAgent>();
         _timer = 0;
     }

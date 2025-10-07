@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class IdleChicken : AIStateBase
 {    
-    private float runRange = 5;
     private float _timeToIdle = 3f;
         
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -18,7 +17,7 @@ public class IdleChicken : AIStateBase
             SetBool("isEating", true);
         }
         
-        if (_playerDistance < runRange)
+        if (_playerDistance < _runRange)
         {
             SetBool("isRunning", true);
         }

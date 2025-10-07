@@ -24,6 +24,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (damage <= 0) return; // защита от отрицательного урона
         CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, maxHealth);
         healthSlider.value = CurrentHealth;
         PlayerPrefs.SetInt("Health", CurrentHealth);

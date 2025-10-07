@@ -1,32 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WalkChicken : AIStateBase
 {        
-    private float _timeToWalking = 10f;
-    private static List<Transform> points = new List<Transform>(); // статическое кэширование
-    private static bool pointsCached = false;
+    private float _timeToWalking = 10f;    
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Initialize(animator);
-
-        if (!pointsCached) // Кэшируем точки один раз для всех кур
-        {
-            points = new List<Transform>();
-            Transform pointsOdject = GameObject.FindGameObjectWithTag("PointsChicken").transform;
-            foreach (Transform t in pointsOdject)
-            {
-                points.Add(t);
-            }
-            pointsCached = true;
-        }
-
-        if(points.Count > 0)
-        {
-            _agent.SetDestination(points[Random.Range(0, points.Count)].position); //первая точка
-        }
-                                                                               
+        SetRandomDestination("PointsChicken");        
         SetRandomDuration(_timeToWalking, _timeToWalking + 21);
         _agent.speed = 1;
     }
@@ -35,7 +16,7 @@ public class WalkChicken : AIStateBase
     {
         if (_agent.remainingDistance <= _agent.stoppingDistance)
         {
-            _agent.SetDestination(points[Random.Range(0, points.Count)].position);
+            SetRandomDestination("PointsChicken");            
         }
         
         if (UpdateStateTimer())

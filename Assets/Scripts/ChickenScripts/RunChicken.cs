@@ -13,9 +13,11 @@ public class RunChicken : AIStateBase
         
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Vector3 runDirection = animator.transform.position - _player.position; // Вычисляем направление
-        _agent.SetDestination(animator.transform.position + runDirection); // Устанавливаем цель для навигации
-                
+        Vector3 runDirection = (animator.transform.position - _player.position).normalized;
+
+        if (runDirection != Vector3.zero)
+            _agent.SetDestination(animator.transform.position + runDirection * _chaseRange);
+        
         if (_playerDistance > _chaseRange)
         {
             SetBool("isRunning", false);

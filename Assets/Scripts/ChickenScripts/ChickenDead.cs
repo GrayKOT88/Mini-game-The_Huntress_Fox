@@ -25,8 +25,6 @@ public class ChickenDead : MonoBehaviour, IPooledObject
     private void ReturnToPool()
     {
         if (objectPool != null)
-            objectPool.ReturnToPool(poolTag, gameObject);
-        else
-            FindObjectOfType<ObjectPool>()?.ReturnToPool(poolTag, gameObject);
+            objectPool.ReturnToPool(poolTag, gameObject);        
     }
 }

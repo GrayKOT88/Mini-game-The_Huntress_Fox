@@ -5,6 +5,9 @@ public class PlayerCollisionHandler : MonoBehaviour
     private PlayerHealth _health;
     private PlayerScore _score;
     private PlayerAudio _audio;
+    private int _damageFromDog = 5;
+    private int _healthFromChicken = 1;
+    private int _scorePoint = 1;
 
     private void Awake()
     {
@@ -20,13 +23,13 @@ public class PlayerCollisionHandler : MonoBehaviour
             _audio.PlayChickenSound();
             if (_health.CurrentHealth < _health.MaxHealth)
             {
-                _health.Heal(1);
+                _health.Heal(_healthFromChicken);
             }
-            _score.AddScore(1);
+            _score.AddScore(_scorePoint);
         }
         else if (other.CompareTag("Dog"))
         {
-            _health.TakeDamage(5);
+            _health.TakeDamage(_damageFromDog);
         }
     }
 }

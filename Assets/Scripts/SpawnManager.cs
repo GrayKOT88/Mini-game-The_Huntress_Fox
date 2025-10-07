@@ -8,7 +8,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private string chickenPoolTag = "Chicken";
     [SerializeField] private int maxChickens = 10;
     [SerializeField] private float spawnCheckInterval = 10f;
-    [SerializeField] private ObjectPool objectPool;
+    [SerializeField] private IObjectPool objectPool;
 
     List<Transform> spawnPoints = new List<Transform>();
     private Coroutine checkCoroutine;
@@ -33,7 +33,7 @@ public class SpawnManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(spawnCheckInterval);
-
+            if (this == null || !isActiveAndEnabled) yield break; //проверку на уничтожение объекта
             int activeChickens = objectPool.GetActiveObjectsCount(chickenPoolTag);
 
             if (activeChickens < maxChickens)

@@ -1,10 +1,11 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerAudio : MonoBehaviour
 {
     [SerializeField] private AudioClip chickenSound;
-
     private AudioSource audioSource;
+    private bool isPlaying = false;
 
     private void Awake()
     {
@@ -13,6 +14,17 @@ public class PlayerAudio : MonoBehaviour
 
     public void PlayChickenSound()
     {
-        audioSource.PlayOneShot(chickenSound, 2f);
+        if(!isPlaying)
+        {
+            isPlaying = true;
+            audioSource.PlayOneShot(chickenSound, 2f);
+            StartCoroutine(ResetPlayingFlag(chickenSound.length));
+        }
+    }
+
+    private IEnumerator ResetPlayingFlag(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        isPlaying = false;
     }
 }

@@ -1,22 +1,15 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PatrolDog : AIStateBase
 {
     [SerializeField] string pointsTag;    
     float chaseRange = 15;
-    private float _timeToPatrol = 30f;
-    List<Transform> points = new List<Transform>();
-        
+    private float _timeToPatrol = 30f;    
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Initialize(animator);        
-        Transform pointsOdject = GameObject.FindGameObjectWithTag(pointsTag).transform;
-        foreach (Transform t in pointsOdject)
-        {
-            points.Add(t);
-        }
-        _agent.SetDestination(points[Random.Range(0, points.Count)].position); //первая точка
+        Initialize(animator);
+        SetRandomDestination(pointsTag);
         SetRandomDuration(_timeToPatrol, _timeToPatrol + 150);       
     }
     
@@ -24,7 +17,7 @@ public class PatrolDog : AIStateBase
     {      
         if (_agent.remainingDistance <= _agent.stoppingDistance)
         {
-            _agent.SetDestination(points[Random.Range(0, points.Count)].position);
+            SetRandomDestination(pointsTag);
         }
                
         if (UpdateStateTimer())

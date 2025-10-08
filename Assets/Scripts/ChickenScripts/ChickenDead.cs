@@ -1,9 +1,8 @@
 using UnityEngine;
 
 public class ChickenDead : MonoBehaviour, IPooledObject
-{
-    [SerializeField] ParticleSystem explosionParticle;
-    [SerializeField] private string poolTag = "Chicken";
+{    
+    private string poolTag = "Chicken";
     private ObjectPool objectPool;
 
     public void SetObjectPool(ObjectPool pool)
@@ -15,9 +14,8 @@ public class ChickenDead : MonoBehaviour, IPooledObject
     {
         if (other.CompareTag("Player"))
         {            
-            Vector3 partPos = new Vector3(transform.position.x, 0.2f, transform.position.z);           
-            Instantiate(explosionParticle, partPos, explosionParticle.transform.rotation);
-
+            Vector3 partPos = new Vector3(transform.position.x, 0.2f, transform.position.z);
+            GameObject explosion = objectPool.SpawnFromPool("Explosion", partPos, Quaternion.identity);            
             ReturnToPool();
         }
     }

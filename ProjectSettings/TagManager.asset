@@ -12,6 +12,7 @@ TagManager:
   - 4DogPoints
   - 5DogPoints
   - Dog
+  - Explosion
   layers:
   - Default
   - TransparentFX

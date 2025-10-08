@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4708421252789590907}
   - component: {fileID: 2088871590894813759}
   - component: {fileID: 8835216161982934875}
-  - component: {fileID: 422108215389928263}
+  - component: {fileID: -8863197496066625622}
   m_Layer: 0
   m_Name: PS_Red
-  m_TagString: Untagged
+  m_TagString: Explosion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4838,7 +4838,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &422108215389928263
+--- !u!114 &-8863197496066625622
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4847,6 +4847,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3371569193385938658}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5b4d8977842d4495a74efdf63299158, type: 3}
+  m_Script: {fileID: 11500000, guid: 913526e19fba8bd4d9d0214e51fab736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

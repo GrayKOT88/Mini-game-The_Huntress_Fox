@@ -2,13 +2,10 @@ using UnityEngine;
 
 public class RunChicken : AIStateBase
 {
-    private const float MIN_SPEED = 3.5f;
-    private const float MAX_SPEED = 5f;
-
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Initialize(animator);        
-        _agent.speed = Random.Range(MIN_SPEED, MAX_SPEED);        
+        _agent.speed = Random.Range(_aiConfig.ChickenMinSpeed, _aiConfig.ChickenMaxSpeed);        
     }
         
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -16,9 +13,9 @@ public class RunChicken : AIStateBase
         Vector3 runDirection = (animator.transform.position - _player.position).normalized;
 
         if (runDirection != Vector3.zero)
-            _agent.SetDestination(animator.transform.position + runDirection * _chaseRange);
+            _agent.SetDestination(animator.transform.position + runDirection * _aiConfig.ChickenChaseRange);
         
-        if (_playerDistance > _chaseRange)
+        if (_playerDistance > _aiConfig.ChickenChaseRange)
         {
             SetBool("isRunning", false);
             SetBool("isWalking", false);

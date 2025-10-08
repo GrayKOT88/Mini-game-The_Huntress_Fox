@@ -2,12 +2,10 @@ using UnityEngine;
 
 public class PlayerCollisionHandler : MonoBehaviour
 {
+    [SerializeField] private GameConfig _gameConfig;
     private PlayerHealth _health;
     private PlayerScore _score;
-    private PlayerAudio _audio;
-    private int _damageFromDog = 5;
-    private int _healthFromChicken = 1;
-    private int _scorePoint = 1;
+    private PlayerAudio _audio;    
 
     private void Awake()
     {
@@ -23,13 +21,13 @@ public class PlayerCollisionHandler : MonoBehaviour
             _audio.PlayChickenSound();
             if (_health.CurrentHealth < _health.MaxHealth)
             {
-                _health.Heal(_healthFromChicken);
+                _health.Heal(_gameConfig.HealthFromChicken);
             }
-            _score.AddScore(_scorePoint);
+            _score.AddScore(_gameConfig.ScorePerChicken);
         }
         else if (other.CompareTag("Dog"))
         {
-            _health.TakeDamage(_damageFromDog);
+            _health.TakeDamage(_gameConfig.DamageFromDog);
         }
     }
 }

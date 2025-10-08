@@ -4,11 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SpawnManager : MonoBehaviour
-{    
-    [SerializeField] private string chickenPoolTag = "Chicken";
-    [SerializeField] private int maxChickens = 10;
-    [SerializeField] private float spawnCheckInterval = 10f;
-    [SerializeField] private ObjectPool objectPool;    
+{
+    [SerializeField] private PoolConfig _poolConfig;    
+    [SerializeField] private ObjectPool _objectPool;    
 
     List<Transform> spawnPoints = new List<Transform>();
     private Coroutine checkCoroutine;
@@ -16,7 +14,7 @@ public class SpawnManager : MonoBehaviour
     private void Start()
     {
         CacheSpawnPoints();
-        SpawnMultipleChickens(maxChickens);
+        SpawnMultipleChickens(_poolConfig.MaxChickens);
         checkCoroutine = StartCoroutine(ChickenCheckRoutine());
     }
 
@@ -30,15 +28,17 @@ public class SpawnManager : MonoBehaviour
     }
     private IEnumerator ChickenCheckRoutine()
     {
+        yield return null;
         while (true)
         {
-            yield return new WaitForSeconds(spawnCheckInterval);
-            if (this == null || !isActiveAndEnabled) yield break; //проверку на уничтожение объекта
-            int activeChickens = objectPool.GetActiveObjectsCount(chickenPoolTag);
+            yield return new WaitForSeconds(_poolConfig.SpawnCheckInterval);
+            if (this == null || !isActiveAndEnabled || _objectPool == null)
+                yield break; //проверку на уничтожение объекта
+            int activeChickens = _objectPool.GetActiveObjectsCount(_poolConfig.ChickenPoolTag);
 
-            if (activeChickens < maxChickens)
+            if (activeChickens < _poolConfig.MaxChickens)
             {
-                int chickensToSpawn = maxChickens - activeChickens;
+                int chickensToSpawn = _poolConfig.MaxChickens - activeChickens;
                 SpawnMultipleChickens(chickensToSpawn);
             }
         }        
@@ -57,10 +57,10 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnChicken()
     {
-        if (spawnPoints.Count == 0 || objectPool == null) return;
+        if (spawnPoints.Count == 0 || _objectPool == null) return;
 
         Vector3 spawnPos = GetRandomSpawnPosition();
-        GameObject chicken = objectPool.SpawnFromPool(chickenPoolTag, spawnPos, Quaternion.identity);
+        GameObject chicken = _objectPool.SpawnFromPool(_poolConfig.ChickenPoolTag, spawnPos, Quaternion.identity);
 
         if (chicken == null)
         {

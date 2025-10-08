@@ -9,7 +9,11 @@ public class ExplosionScript : MonoBehaviour, IPooledObject
     public void SetObjectPool(ObjectPool pool)
     {
         objectPool = pool;
-        StartCoroutine(ReturnToPool());
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(ReturnToPool());        
     }
 
     private IEnumerator ReturnToPool()
@@ -17,5 +21,7 @@ public class ExplosionScript : MonoBehaviour, IPooledObject
         yield return new WaitForSeconds(2);
         if (objectPool != null)
             objectPool.ReturnToPool(poolTag, gameObject);
+        else
+            gameObject.SetActive(false); // Fallback
     }
 }

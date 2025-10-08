@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3ba44becfa27024bbd1a638c060e2d6, type: 3}
+  m_Name: AIConfig
+  m_EditorClassIdentifier: 
+  ChickenRunRange: 5
+  ChickenChaseRange: 10
+  ChickenMinSpeed: 3.5
+  ChickenMaxSpeed: 5
+  DogChaseRange: 15
+  DogBarkingDistance: 3
+  DogStopChaseDistance: 20
+  DogAttackRange: 1.5
+  ChickenEatTime: 5
+  ChickenIdleTime: 3
+  ChickenWalkTime: 10
+  DogIdleTime: 3
+  DogSitTime: 5
+  DogPatrolTime: 30

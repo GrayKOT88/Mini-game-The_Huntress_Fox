@@ -3,14 +3,12 @@ using UnityEngine;
 public class PatrolDog : AIStateBase
 {
     [SerializeField] string pointsTag;    
-    float chaseRange = 15;
-    private float _timeToPatrol = 30f;    
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Initialize(animator);
         SetRandomDestination(pointsTag);
-        SetRandomDuration(_timeToPatrol, _timeToPatrol + 150);       
+        SetRandomDuration(_aiConfig.DogPatrolTime, _aiConfig.DogPatrolTime + 150);       
     }
     
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -25,7 +23,7 @@ public class PatrolDog : AIStateBase
             SetBool("isPatrolling", false);           
         }
         
-        if (_playerDistance < chaseRange)
+        if (_playerDistance < _aiConfig.DogChaseRange)
         {
             SetBool("isChasing", true);            
         }

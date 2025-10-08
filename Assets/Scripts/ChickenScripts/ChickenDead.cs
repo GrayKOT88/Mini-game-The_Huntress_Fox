@@ -15,7 +15,7 @@ public class ChickenDead : MonoBehaviour, IPooledObject
         if (other.CompareTag("Player"))
         {            
             Vector3 partPos = new Vector3(transform.position.x, 0.2f, transform.position.z);
-            GameObject explosion = objectPool.SpawnFromPool("Explosion", partPos, Quaternion.identity);            
+            GameObject explosion = objectPool?.SpawnFromPool("Explosion", partPos, Quaternion.identity);            
             ReturnToPool();
         }
     }

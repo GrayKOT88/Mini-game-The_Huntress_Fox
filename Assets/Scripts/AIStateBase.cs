@@ -4,15 +4,12 @@ using UnityEngine.AI;
 
 public abstract class AIStateBase : StateMachineBehaviour
 {
+    protected AIConfig _aiConfig => AIConfig.Instance; // Автоматическая загрузка
     protected Transform _player;
     protected NavMeshAgent _agent;
     protected Animator _animator;
-
     protected float _timer;
     protected float _randomDuration;
-
-    protected float _runRange = 5f;
-    protected float _chaseRange = 10f;
     
     protected float _playerDistance => Vector3.Distance(_animator.transform.position, _player.position);
     private static Transform _cachedPlayer; // Статическое кэширование игрока
@@ -27,7 +24,7 @@ public abstract class AIStateBase : StateMachineBehaviour
             _cachedPlayer = GameObject.FindGameObjectWithTag("Player").transform;
         _player = _cachedPlayer;
         _agent = animator.GetComponent<NavMeshAgent>();
-        _timer = 0;
+        _timer = 0;        
     }
 
     protected List<Transform> GetPointsByTag(string tag)

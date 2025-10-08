@@ -2,12 +2,10 @@ using UnityEngine;
 
 public class EatChicken : AIStateBase
 {
-    private float _timeToEating = 5f;    
-
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Initialize(animator);
-        SetRandomDuration(_timeToEating, _timeToEating + 25);        
+        SetRandomDuration(_aiConfig.ChickenEatTime, _aiConfig.ChickenEatTime + 25);        
     }
     
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -18,7 +16,7 @@ public class EatChicken : AIStateBase
             SetBool("isWalking", true);
         }
         
-        if (_playerDistance < _runRange)
+        if (_playerDistance < _aiConfig.ChickenRunRange)
         {
             SetBool("isEating", false);
         }

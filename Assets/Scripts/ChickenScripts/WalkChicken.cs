@@ -1,14 +1,12 @@
 using UnityEngine;
 
 public class WalkChicken : AIStateBase
-{        
-    private float _timeToWalking = 10f;    
-
+{ 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Initialize(animator);
         SetRandomDestination("PointsChicken");        
-        SetRandomDuration(_timeToWalking, _timeToWalking + 21);
+        SetRandomDuration(_aiConfig.ChickenWalkTime, _aiConfig.ChickenWalkTime + 21);
         _agent.speed = 1;
     }
         
@@ -24,7 +22,7 @@ public class WalkChicken : AIStateBase
             SetBool("isWalking", false);
         }
         
-        if (_playerDistance < _runRange)
+        if (_playerDistance < _aiConfig.ChickenRunRange)
         {
             SetBool("isRunning", true);
         }

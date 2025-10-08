@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class ChaseDog : AIStateBase
 {
-    [SerializeField] float speedChase;
-    float chaseRange = 20; //разстояние через которое не будет приследовать
-    float attackRange = 1.5f;  
+    [SerializeField] float speedChase;    
         
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -16,12 +14,12 @@ public class ChaseDog : AIStateBase
     {
         _agent.SetDestination(_player.position);
         
-        if (_playerDistance < attackRange)
+        if (_playerDistance < _aiConfig.DogAttackRange)
         {
             SetBool("isBarking", true);            
         }
 
-        if (_playerDistance > chaseRange)
+        if (_playerDistance > _aiConfig.DogStopChaseDistance)
         {
             SetBool("isChasing", false);                      
         }

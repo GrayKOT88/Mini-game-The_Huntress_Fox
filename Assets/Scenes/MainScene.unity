@@ -13902,9 +13902,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 844f519c10c24004799ea4e4bde7bb63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chickenPoolTag: Chicken
-  maxChickens: 10
-  spawnCheckInterval: 10
+  _poolConfig: {fileID: 11400000, guid: 5cf21be57473fbb43895a1bbb6875cf2, type: 2}
+  _objectPool: {fileID: 1147315457}
 --- !u!4 &358517944
 Transform:
   m_ObjectHideFlags: 0
@@ -48984,7 +48983,7 @@ GameObject:
   - component: {fileID: 1147315456}
   - component: {fileID: 1147315457}
   m_Layer: 0
-  m_Name: ChickenPool
+  m_Name: ObjectPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49025,6 +49024,11 @@ MonoBehaviour:
     - {fileID: 7676752429755582828, guid: 87220ff4927740844994591bbb07355c, type: 3}
     - {fileID: 7658612573867939630, guid: 40712933bdf3b6442ac5388b8b4ab653, type: 3}
     size: 10
+    activeCount: 0
+  - tag: Explosion
+    prefabs:
+    - {fileID: 3371569193385938658, guid: 8e5ec8a5aa7730240b152be26a2d0711, type: 3}
+    size: 3
     activeCount: 0
 --- !u!1001 &1153531528
 PrefabInstance:
@@ -84842,9 +84846,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809f87b9a3835d542965810ccb90ec81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  rotationSpeed: 0.5
-  playerAnim: {fileID: 1868367714}
+  _gameConfig: {fileID: 11400000, guid: a8230ebfe518dc2478cf00531ff0d152, type: 2}
+  _playerAnim: {fileID: 1868367714}
 --- !u!114 &2073103086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84872,6 +84875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dd74a755bf4bd941917534b36604002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameConfig: {fileID: 11400000, guid: a8230ebfe518dc2478cf00531ff0d152, type: 2}
 --- !u!114 &2073103088
 MonoBehaviour:
   m_ObjectHideFlags: 0

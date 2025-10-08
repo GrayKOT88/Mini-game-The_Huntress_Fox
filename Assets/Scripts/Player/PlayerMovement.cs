@@ -1,17 +1,12 @@
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
-{
-    [Header("Movement Settings")]
-    [SerializeField] private float speed = 5f;
-    [SerializeField] private float rotationSpeed = 0.5f;
-    private Vector2 xBounds = new Vector2(-50, 50);
-    private Vector2 zBounds = new Vector2(-50, 50);
+{    
+    [SerializeField] private GameConfig _gameConfig;
+    [SerializeField] private Animator _playerAnim;
 
-    [SerializeField] private Animator playerAnim;
     private float oldMousePositionX;
     private float eulerY;
-
     private GameStateManager _state;
 
     private void Start()
@@ -35,17 +30,17 @@ public class PlayerMovement : MonoBehaviour
         {
             MoveForward();
             RotatePlayer();
-            playerAnim.SetFloat("Speed_f", 1);
+            _playerAnim.SetFloat("Speed_f", 1);
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            playerAnim.SetFloat("Speed_f", 0);
+            _playerAnim.SetFloat("Speed_f", 0);
         }
     }
 
     private void MoveForward()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        transform.Translate(Vector3.forward * _gameConfig.PlayerSpeed * Time.deltaTime);
         ClampPosition();
     }
 
@@ -53,15 +48,15 @@ public class PlayerMovement : MonoBehaviour
     {
         float deltaX = Input.mousePosition.x - oldMousePositionX;
         oldMousePositionX = Input.mousePosition.x;
-        eulerY += deltaX * rotationSpeed;
+        eulerY += deltaX * _gameConfig.PlayerRotationSpeed;
         transform.eulerAngles = new Vector3(0, eulerY, 0);
     }
 
     private void ClampPosition()
     {
         Vector3 clampedPosition = transform.position;
-        clampedPosition.x = Mathf.Clamp(clampedPosition.x, xBounds.x, xBounds.y);
-        clampedPosition.z = Mathf.Clamp(clampedPosition.z, zBounds.x, zBounds.y);
+        clampedPosition.x = Mathf.Clamp(clampedPosition.x, _gameConfig.XBounds.x, _gameConfig.XBounds.y);
+        clampedPosition.z = Mathf.Clamp(clampedPosition.z, _gameConfig.ZBounds.x, _gameConfig.ZBounds.y);
         clampedPosition.y = Mathf.Max(clampedPosition.y, 0);
         transform.position = clampedPosition;
     }

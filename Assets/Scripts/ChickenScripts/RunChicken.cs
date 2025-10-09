@@ -11,9 +11,9 @@ public class RunChicken : AIStateBase
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Vector3 runDirection = (animator.transform.position - _player.position).normalized;
-
+        float safeDistance = _aiConfig.ChickenRunRange * 1.5f; // Бежим на безопасное расстояние
         if (runDirection != Vector3.zero)
-            _agent.SetDestination(animator.transform.position + runDirection * _aiConfig.ChickenRunRange);
+            _agent.SetDestination(animator.transform.position + runDirection * safeDistance);
         
         if (_playerDistance > _aiConfig.ChickenChaseRange)
         {

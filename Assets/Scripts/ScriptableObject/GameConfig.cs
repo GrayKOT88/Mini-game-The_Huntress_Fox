@@ -14,6 +14,6 @@ public class GameConfig : ScriptableObject
 
     [Header("Collision Effects")]
     public int DamageFromDog = 5;
-    public int HealthFromChicken = 1;
+    public int HealthFromChicken = 2;
     public int ScorePerChicken = 1;
 }

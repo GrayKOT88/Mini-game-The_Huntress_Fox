@@ -13,7 +13,7 @@ public class RunChicken : AIStateBase
         Vector3 runDirection = (animator.transform.position - _player.position).normalized;
 
         if (runDirection != Vector3.zero)
-            _agent.SetDestination(animator.transform.position + runDirection * _aiConfig.ChickenChaseRange);
+            _agent.SetDestination(animator.transform.position + runDirection * _aiConfig.ChickenRunRange);
         
         if (_playerDistance > _aiConfig.ChickenChaseRange)
         {

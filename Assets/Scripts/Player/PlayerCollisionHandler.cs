@@ -19,7 +19,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (other.CompareTag("Chicken"))
         {
             _audio.PlayChickenSound();
-            if (_health.CurrentHealth < _health.MaxHealth)
+            if (_health.CurrentHealth < _gameConfig.PlayerMaxHealth)
             {
                 _health.Heal(_gameConfig.HealthFromChicken);
             }

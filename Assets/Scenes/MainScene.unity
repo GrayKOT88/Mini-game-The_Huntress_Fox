@@ -84860,7 +84860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f13ee6027e89c1e4ba101fa7ba2951a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 15
+  _gameConfig: {fileID: 11400000, guid: a8230ebfe518dc2478cf00531ff0d152, type: 2}
   healthSlider: {fileID: 819703961}
   damageOverlay: {fileID: 230824213}
 --- !u!114 &2073103087

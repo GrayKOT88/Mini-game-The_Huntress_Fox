@@ -3,29 +3,26 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
-{
-    [Header("Health Settings")]
-    [SerializeField] private int maxHealth = 15;
+{   
+    [SerializeField] private GameConfig _gameConfig;
     [SerializeField] private Slider healthSlider;
     [SerializeField] private GameObject damageOverlay;
-
     public event System.Action OnDeath;
 
-    public int CurrentHealth { get; private set; }
-    public int MaxHealth => maxHealth;
+    public int CurrentHealth { get; private set; }    
 
     private void Start()
     {
-        CurrentHealth = PlayerPrefs.GetInt("Health", maxHealth);
-        if(CurrentHealth <= 0) { CurrentHealth = maxHealth; }
-        healthSlider.maxValue = maxHealth;
+        CurrentHealth = PlayerPrefs.GetInt("Health", _gameConfig.PlayerMaxHealth);
+        if(CurrentHealth <= 0) { CurrentHealth = _gameConfig.PlayerMaxHealth; }
+        healthSlider.maxValue = _gameConfig.PlayerMaxHealth;
         healthSlider.value = CurrentHealth;
     }
 
     public void TakeDamage(int damage)
     {
         if (damage <= 0) return; // защита от отрицательного урона
-        CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, maxHealth);
+        CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, _gameConfig.PlayerMaxHealth);
         healthSlider.value = CurrentHealth;
         PlayerPrefs.SetInt("Health", CurrentHealth);
 
@@ -42,7 +39,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void Heal(int amount)
     {
-        CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, maxHealth);
+        CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, _gameConfig.PlayerMaxHealth);
         healthSlider.value = CurrentHealth;
         PlayerPrefs.SetInt("Health", CurrentHealth);
     }

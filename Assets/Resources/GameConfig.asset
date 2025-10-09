@@ -18,5 +18,5 @@ MonoBehaviour:
   XBounds: {x: -50, y: 50}
   ZBounds: {x: -50, y: 50}
   DamageFromDog: 5
-  HealthFromChicken: 1
+  HealthFromChicken: 2
   ScorePerChicken: 1

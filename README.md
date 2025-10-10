@@ -1,2 +1,9 @@
 # Fox-chickens-and-dogs
-A small arcade game for mobile and desktop platforms. (15.06.24) https://yandex.ru/games/app/357849?lang=ru
+A small arcade game for mobile and desktop platforms. (15.06.24)
+Моя вторая игра, делал её, отталкиваясь от первой, сделал её простой. Решил сделать небольшой рефакторинг кода.
+
+- Добавил ScriptableObject для конфигурации.
+- Реализовал паттерн «Object Pool» для повторного использования куриц и эффектов.
+- Добавил интерфейсы для системы пулов.
+- Оставил прежним State Machine (Animator как FSM), добавил только абстрактный класс.
+- Добавил больше проверок на null и Debug.LogWarning.
